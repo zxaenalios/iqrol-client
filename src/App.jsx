@@ -1,10 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { users } from './services/users_service'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [user, setUsers] = useState([])
+
+  const getUsers = async() => {
+    const response = await users()
+    console.log("response")
+    console.log(response)
+    if (response.status == 200) {
+      setUsers(response.data.message.list)
+    }
+  }
+
+  useEffect(() => {
+    getUsers()
+  }, [])
 
   return (
     <>
@@ -28,6 +43,17 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <div>
+      <h2>Data dari API</h2>
+      <div>
+        {user.map((item) => (
+          <div>
+            <strong>{item.name}</strong><br />
+            {item.age} {item.address}
+          </div>
+        ))}
+      </div>
+    </div>
     </>
   )
 }
