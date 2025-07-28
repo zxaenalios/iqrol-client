@@ -2,18 +2,16 @@ import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { users } from './services/users_service'
+import { Akun } from './services/akun_service'
 
 function App() {
   const [count, setCount] = useState(0)
-  const [user, setUsers] = useState([])
+  const [akun, setAkun] = useState([])
 
   const getUsers = async() => {
-    const response = await users()
-    console.log("response")
-    console.log(response)
+    const response = await Akun()
     if (response.status == 200) {
-      setUsers(response.data.message.list)
+      setAkun(response.data.message.list)
     }
   }
 
@@ -31,25 +29,33 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>Pengembangan IQROL</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        {/* <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
-        </button>
+        </button> */}
         <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+          {/* Edit <code>src/App.jsx</code> and save to test HMR */}
         </p>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        {/* Click on the Vite and React logos to learn more */}
       </p>
       <div>
       <h2>Data dari API</h2>
       <div>
-        {user.map((item) => (
+        {akun.map((item) => (
           <div>
-            <strong>{item.name}</strong><br />
-            {item.age} {item.address}
+            <strong>{item.nama}</strong><br />
+            tanggal lahir: {item.tanggalLahir}<br />
+            tempat lahir: {item.tempatLahir}<br />
+            alamat rumah: {item.alamatRumah}<br />
+            sekolah: {item.sekolah}<br />
+            alamat sekolah: {item.alamatSekolah}<br />
+            nomor handphone: {item.nomorHandphone}<br />
+            peran: {item.peran}<br />
+            createdAt: {item.createdAt}<br />
+            updatedAt: {item.updatedAt}<br />
           </div>
         ))}
       </div>
